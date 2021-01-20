@@ -1,0 +1,91 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts, amsmath, amssymb}
+\usepackage[english]{babel}
+% \usepackage{boisik}
+\usepackage{amsthm}
+\usepackage[margin=0.5in]{geometry}
+
+%\usepackage{tgbonum}
+%\usepackage{cmbright}
+%\usepackage{textcomp}
+\usepackage[object=am]{pgfornament}
+\usepackage{tikz-cd}
+
+\theoremstyle{definition}
+\newtheorem{definition}{$\boxed{\star}$ Definition}
+\newcommand{\tit}[1]{\textit{#1}}
+\newtheorem{theorem}{$\boxed{\boxed{\circledast}}$ Theorem}
+
+\newcommand{\nll}[0]{\newline\newline}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\theoremstyle{definition}
+\newtheorem{corollary}{$ \to $ Corollary}
+
+\theoremstyle{definition}
+\newtheorem{proposition}{$\checkmark$ Proposition}
+
+\newenvironment{customproof}[1]{\paragraph{Answer #1:}}{\hfill\ensuremath{\blacksquare}}
+\newcommand{\ans}[1]{\textbf{Answer #1}}
+
+
+\title{Topology \large\\
+	 Solution to selected problems }
+\author{Animesh Renanse}
+\date{\today}
+\usepackage{amsthm}
+
+\newcommand{\intrs}{\cap}
+
+\newcommand{\abs}[1]{\left\vert #1\right\vert}
+\newcommand{\inv}[1]{#1^{-1}}
+\newcommand{\gen}[1]{\left\langle #1\right\rangle}
+\newcommand{\order}[1]{\left\vert #1 \right\vert}
+\newcommand{\image}[0]{\text{Im }}
+\newcommand{\kernel}[0]{\text{Ker }}
+\newcommand{\nsg}[0]{\trianglelefteq}
+\newcommand{\isomorph}{\cong}
+\newcommand{\End}[1]{\text{\textbf{End}}\left(#1\right)}
+\newcommand{\Auto}[1]{\text{\textbf{Aut}}\left(#1\right)}
+\newcommand{\groupINT}[0]{\mathbb{Z}}
+
+\newcommand{\topo}[1]{\mathcal{#1}}
+\newcommand{\subtopo}[2]{\left. #1 \right\vert_{#2}  }
+\newcommand{\nbdsys}[2]{\mathfrak{#1}(#2)}
+\newcommand{\interior}[1]{#1^\circ}
+\newcommand{\boundary}[1]{\partial #1}
+\newcommand{\closure}[1]{#1^{\text{cl}}}
+\newcommand{\cntnsmap}[2]{\mathscr{C}(#1,#2)}
+\newcommand{\path}[0]{\gamma}
+\newcommand{\conncomp}[1]{\mathfrak{C}(#1)}
+\newcommand{\pathconncomp}[1]{\Pi(#1)}
+\newcommand{\union}[0]{\cup}
+\newcommand{\bunion}[0]{\bigcup}
+\newcommand{\bintrs}[0]{\bigcap}
+
+\renewcommand{\qedsymbol}{\ensuremath{\blacksquare}}
+
+
+\begin{document}
+	
+	\maketitle
+	\begin{customproof}{2.7.4}
+		The question defined any $ O\subseteq M $ as \emph{open} if $ O\in \nbdsys{U}{p} $ for all $ p\in O $. We need to show that this defines a topology $ \topo{M} $ on $ M $. $ \nbdsys{U}{p} $ follows properties 2-5 in Proposition 3.\\
+		To check if $ M\in \topo{M} $ : For any $ U \in \nbdsys{U}{p} $ and since $ U\subseteq M $ hence $ M\in \nbdsys{U}{p} $ and hence $ M $ is open.\\
+		To check $ \Phi \in \topo{M} $ : For any $ U\in \nbdsys{U}{p} $ then $ \exists \;V\in \nbdsys{U}{p} $ with $ V\subseteq U $. Now since $ U\setminus V \subseteq U \in \nbdsys{U}{p} $. Therefore $ U\setminus V \in \nbdsys{U}{p} $ and since $ V\in \nbdsys{U}{p} $ which implies $ U\setminus V \intrs V = \Phi \in \nbdsys{U}{p} $.\\
+		To check if $ O_1,\dots,O_n \in \nbdsys{U}{p}$ then $ O_1\intrs \dots\intrs O_n \in \nbdsys{U}{p} $ : This is just the $ 3^{rd} $ property in Proposition 3.\\
+		To check if $ O_1,\dots\in \nbdsys{U}{p}$ then $ O_1 \union \dots \in \nbdsys{U}{p} $ : Denote $ O = \bigcup_{i\in I} O_i $. From the $ 5^{th} $ property, we have for each $ O_i $ a $ V_i \in \nbdsys{U}{p} $ with $ V_i \subseteq O_i $ and $ V_i \in \nbdsys{U}{p} \;\forall\;q\in V_i$. Therefore, $ V  =\bigcup_{i\in I} V_i \subseteq O $. Note that $ V \in \nbdsys{U}{q} \;\forall\;q\in V_i\;\forall\;i\in I$. Since $ p\in V_i $ for any $ i $ therefore $ \bigcup_{i\in I} V_i \in \nbdsys{U}{p} $. Since $ V\subseteq O $, hence $ O = \bigcup_{i\in I} O_i \in \nbdsys{U}{p}  $, proving the first part.\\\\
+		Now, to determine the neighborhoods of such a topology. Note the definition of neighborhood : $ U\subseteq M $ is called a neighborhood of $ p\in M $ if $ \exists $ \emph{open} $ O\subseteq M $ such that $ p\in O \subseteq U $. \\
+		Consider any $ p\in M $ and an \emph{open} subset containing $ p $, that is $ p\in O \in \nbdsys{U}{p} $. Now since for any $ O \in \nbdsys{U}{p} $, we have $ p\in O $ therefore any \emph{open} $ O\in \nbdsys{U}{p} $ is by definition the neighborhood. Therefore
+		\[\nbdsys{U}{p}\subseteq \overline{\nbdsys{U}{p}}\]
+		Now consider any $ U \in \overline{\nbdsys{U}{p}} $ which is a neighborhood of $ p $. By definition of neighborhood, $ U $ must contain an \emph{open} subset containing $ p $. Therefore $ \exists \;O^\prime \subseteq U $ such that $ p\in O^\prime $ where $ O^\prime $ is \emph{open}, hence $ O^\prime \in \nbdsys{U}{p} $. Since $ O^\prime \subseteq U $ which implies that $ U\in \nbdsys{U}{p} $ for any $ U\in \overline{\nbdsys{U}{p}} $. Therefore,
+		\[\overline{\nbdsys{U}{p}}\subseteq \nbdsys{U}{p}\]
+		so that $ \overline{\nbdsys{U}{p}} = \nbdsys{U}{p} $.
+	\end{customproof}
+
+\hrulefill
+
+\end{document}
+

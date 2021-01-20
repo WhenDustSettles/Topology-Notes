@@ -1,0 +1,588 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts, amsmath, amssymb}
+\usepackage[english]{babel}
+% \usepackage{boisik}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{mathrsfs}
+\usepackage{centernot}
+\usepackage[margin=0.5in]{geometry}
+
+%\usepackage{tgbonum}
+%\usepackage{cmbright}
+%\usepackage{textcomp}
+\usepackage{sectsty}
+\sectionfont{\fontsize{20}{20}\selectfont}
+
+
+\subsectionfont{\fontsize{15}{15}\selectfont}
+
+\usepackage{xcolor}
+
+\newcommand*{\myfont}{\fontfamily{cmr}\selectfont}
+\newcommand{\id}[1]{{\myfont \text{id}_{#1}}}
+\newcommand{\notset}[0]{\setminus}
+
+
+\title{Month of Topology \& Abstract Algebra - IITG\\
+	 \large Topology - Definitions, Propositions, Theorems \& Proofs}
+\author{Animesh Renanse}
+\date{\today}
+\usepackage{amsthm}
+
+\theoremstyle{definition}
+\newtheorem{definition}{$\boxed{\star}$ Definition}
+\newcommand{\tit}[1]{\textit{#1}}
+\newtheorem{theorem}{$\boxed{\boxed{\circledast}}$ Theorem}
+
+\newcommand{\nll}[0]{\newline\newline}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\theoremstyle{definition}
+\newtheorem{corollary}{$ \to $ Corollary}
+
+\theoremstyle{definition}
+\newtheorem{proposition}{$\checkmark$ Proposition}
+
+\newcommand{\topo}[1]{\mathcal{#1}}
+\newcommand{\subtopo}[2]{\left. #1 \right\vert_{#2}  }
+\newcommand{\nbdsys}[2]{\mathfrak{#1}(#2)}
+\newcommand{\interior}[1]{#1^\circ}
+\newcommand{\boundary}[1]{\partial #1}
+\newcommand{\closure}[1]{#1^{\text{cl}}}
+\newcommand{\cntnsmap}[2]{\mathscr{C}(#1,#2)}
+\newcommand{\path}[0]{\gamma}
+\newcommand{\conncomp}[1]{\mathfrak{C}(#1)}
+\newcommand{\pathconncomp}[1]{\Pi(#1)}
+\newcommand{\union}[0]{\cup}
+\newcommand{\intrs}[0]{\cap}
+\newcommand{\bunion}[0]{\bigcup}
+\newcommand{\bintrs}[0]{\bigcap}
+
+\renewcommand{\qedsymbol}{\ensuremath{\blacksquare}}
+
+\begin{document}
+%	\pagecolor{lightgray}
+	\maketitle
+\textbf{Target : } \textit{Reach Topological Manifolds}
+\section{Topological Spaces \& Continuity}
+Moving forward from the basic notion of Open \& Closed Sets, Continuity \& Completeness in Metric Spaces. Most of the prerequisites are from point-set topology background in Functional Analysis.
+\subsection{Basic Topological Constructions}
+\hrulefill
+\begin{definition}
+	\tit{(\textbf{Topological Space})} Let $ M $ be a set. Then a subset $ \mathcal{M} \subseteq 2^M$ of the power set of $ M $ is called a topology if it satisfies the following properties:
+	\begin{enumerate}
+		\item{The empty set $ \Phi $ and $ M $ are in $ \mathcal{M} $.}
+		\item{If $ \left\{ O_i \right\}_{i\in I}$ with $ O_i \in \mathcal{M} $ is an \textbf{arbitrary} collection of elements in $ \mathcal{M} $, then union of all such sets should also be in $ \mathcal{M} $. That is 
+			\[ \bigcup_{i\in I}O_i \in \mathcal{M}\]}
+		\item{If $ O_1, O_2, \dots, O_n \in \mathcal{M} $ are \textbf{finitely} many elements in $ \mathcal{M} $, then there intersection should also be in $ \mathcal{M} $. That is 
+	\[O_1\cap O_2 \cap \dots \cap O_n \in \mathcal{M}\]	
+	}
+	\end{enumerate}
+\end{definition}
+\begin{remark}
+	\begin{itemize}
+		\item{A set $ M $ together with a topology $ \topo{M} \subseteq 2^M$ is called a topological space $ (M,\topo{M}) $. The sets $ O $ are called the \textbf{open} subsets of $ (M,\topo{M}) $.}
+		\item{The power set $ \mathcal{M} = 2^M $ is called the \textbf{Finest Topology of $ M $}.}
+		\item{If one takes topology to be $ \mathcal{M} = \{\Phi, M\} $, it is called the \textbf{Coarsest} or \textbf{Trivial Topology of $ M $}.}
+		\item{The collection $ \mathcal{M}_{\text{cofinite}} \subseteq 2^M $ of all those subsets which have finite complements and $ \Phi $ is called the \textbf{Cofinite Topology on $ M $}.}
+	\end{itemize}
+\end{remark}
+\hrulefill
+\begin{definition}
+	\tit{(\textbf{Closed Subset})} A subset $ A\subseteq M $ of a topological space $ (M,\topo{M}) $ is called closed if $ M \not \;\; A $ is open.
+\end{definition}
+\hrulefill
+\begin{proposition}
+	If $ \{\mathcal{M}_i\}_{i\in I} $ are topologies on $ M $, then 
+	\[\mathcal{M} = \bigcap_{i\in I} \mathcal{M}_i\]
+	\textbf{is also a topology on $ M $}.
+\end{proposition}
+\hrulefill
+The following distinction of topologies helps in comparing them.
+\begin{definition}
+	\tit{(\textbf{Finer \& Coarser})} Let $ \topo{M}_1, \topo{M}_2 \subseteq 2^M$ be topologies on $ M $. Then $ \topo{M}_1 $ is called \tit{finer} than $ \topo{M}_2 $ if $ \topo{M}_2 \subseteq \topo{M}_1 $. In this case, $ \topo{M}_2 $ is called \tit{coarser} than $ \topo{M}_1 $. 
+\end{definition}
+\hrulefill
+The coarsest topology containing open subsets.
+\begin{proposition}
+	Let $ S \subseteq 2^M $ be a subset of the power set of $ M $ containing $ \Phi $ and $ M $. Then,
+	\begin{enumerate}
+		\item{There exists a unique topology $ \topo{M}(S) $ which is \textbf{coarser than every other topology} containing $ S $.}
+		\item{This topology $ \topo{M}(S) $ can be obtained by the following two step procedure:
+	\begin{enumerate}
+		\item{Take all finite intersections of subsets in $ S $.}
+		\item{Then take unions of all the resulting subsets.}
+	\end{enumerate}	
+	}
+	\end{enumerate}
+\end{proposition}
+\hrulefill
+\begin{definition}
+	\tit{(\textbf{Basis \& Subbasis})} Let $ (M,\topo{M}) $ be a topological space and let $ \topo{S},\topo{B} \subseteq \topo{M} $ be subsets containing $ \Phi $ and $ M $. Then,
+	\begin{enumerate}
+		\item{The set $ \topo{B} $ is called a \textit{basis} of $ \topo{M} $ if every open subset in $ \topo{M} $ is a union of subsets from $ \topo{B} $.}
+		\item{The set $ \topo{S} $ is called a \textit{subbasis} of $ \topo{M} $ if the collection of all finite intersections of sets from $ \topo{S} $ forms a basis of $ \topo{M} $.}
+	\end{enumerate}
+\end{definition}
+\hrulefill
+\begin{definition}
+	\tit{(\textbf{Subspace Topology})} Let $ (M,\topo{M}) $ be a topological space and $ N\subseteq M $ a subset. Then $ \left.\topo{M}\right\vert_N $ defined by,
+	\[\left .\topo{M}\right\vert_N = \left \{O \cap N \vert O \in \topo{M}\right \}\subseteq 2^N\]
+	\textbf{is a topology for $ N $}.
+\end{definition}
+\hrulefill
+\subsection{Neighborhoods, Interiors and Closures}
+To define the neighborhood system of a point for a topological space in the same way as we know for metric space.\\
+
+\hrulefill
+\begin{definition}
+	\tit{(\textbf{Neighborhood})} Let $ (M,\topo{M}) $ be a topological space and $ p\in M $. Then,
+	\begin{enumerate}
+		\item{A subset $ U\subseteq M $ is called neighborhood of $ p $ if there exists an open subset $ O\subseteq M $ with $ p\in O \subseteq U $.}
+		\item{The collection of \textit{all} neighborhoods of $ p $ is called the \textbf{neighborhood system} (or neighborhood filter) of $ p $, denoted by $ \nbdsys{U}{p} $.}
+	\end{enumerate}
+\end{definition}
+\hrulefill
+Basic properties of Neighborhoods in Topology.
+\hrulefill
+\begin{proposition}
+	Let $ (M,\topo{M}) $ be a topological space and $ p\in M $. Then,
+	\begin{enumerate}
+		\item{A subset $ O\subseteq M $ is a neighborhood of all of it's points if and only if $ O $ is open.}
+		\item{For $ U\in \nbdsys{U}{p} $ and $ U \subseteq U^\prime $ then we trivially have $ U^{\prime} \in \nbdsys{U}{p}$.}
+		\item{For $ U_1,\dots,U_n \in \nbdsys{U}{p} $, we have $ U_1\cap \dots \cap U_n \in \nbdsys{U}{p}$.}
+		\item{For $ U\in \nbdsys{U}{p} $ we have $ p\in U $.}
+		\item{For $ U\in \nbdsys{U}{p} $ there exists a $ V\in \nbdsys{U}{p} $ with $ V\subseteq U $ and $ V\in \nbdsys{U}{q	} $ for all $ q\in V $.}
+	\end{enumerate}
+\end{proposition}
+\hrulefill
+\begin{definition}
+	\tit{(\textbf{Neighborhood Basis})} Let $ (M,\topo{M}) $ be a topological space and $ p\in M $. Then, a subset $ \nbdsys{B}{p} \subseteq \nbdsys{U}{p}$ of neighborhoods of $ p\in M $ is called a neighborhood basis of $ p $ if for every $ U\in \nbdsys{U}{p} $, there is a $ B\in \nbdsys{B}{p} $ with $ B\subseteq U $. 
+\end{definition}
+\hrulefill
+To capture the phenomenon of having different size of neighborhood bases, we have the following construction.
+\hrulefill
+\begin{definition}
+	\tit{(\textbf{First \& Second Countability})} Let $ (M,\topo{M}) $ be a topological space.
+	\begin{enumerate}
+		\item{The space $ M $ is called first countable (at $ p\in M $) if every point (the point $ p $) has a countable neighborhood basis.}
+		\item{The space $ M $ is called second countable if $ \topo{M} $ has a countable basis.}
+	\end{enumerate}
+\end{definition}
+\newpage
+\hrulefill
+Constructing more subsets of $ M $ given an arbitrary $ A\subseteq M $.
+\hrulefill
+\begin{definition}
+	\tit{(\textbf{Interior, Closure \& Boundary})} Let $ (M,\topo{M}) $ be a topological space and $ A\subseteq M $.
+	\begin{enumerate}
+		\item{A point $ p \in M$ is called \textbf{inner point} of $ A $ if $ A \in \nbdsys{U}{p} $.}
+		\item{The \textbf{interior} $ \interior{A} $ of $ A $ is the set of all inner points of $ A $.}
+		\item{A point $ p \in M $ is called\textbf{ boundary point }of $ A $ if for every neighborhood $ U\in \nbdsys{U}{p} $, we have 
+	\[A\cap U \neq \Phi\neq (M\not\;\;A)\cap U \]	
+	}
+\item{The \textbf{boundary} $ \boundary{A} $ of $ A $ is the set of all boundary points of $ A $.}
+\item{The \textbf{closure} $ \closure{A} $ of $ A $ is the set of all points $ p\in M $ such that all $ U\in \nbdsys{U}{p} $ satisfy 
+\[U\cap A \neq \Phi\]
+}
+	\end{enumerate}
+\end{definition}
+\hrulefill
+Alternative characterizations of Interior, Closure \& Boundary.
+\hrulefill
+\begin{proposition}
+	Let $ (M,\topo{M}) $ be a topological space and $ A\subseteq M $. Then,
+	\begin{enumerate}
+		\item{The interior $ \interior{A} $ of $ A $ is the largest open subset inside $ A $.}
+		\item{The closure $ \closure{A} $ of $ A $ is the smallest closed subset containing $ A $.}
+		\item{The boundary $ \boundary{A} $ of $ A $ is closed and $ \boundary{A} = \closure{A}\not\;\;\interior{A} $.}
+	\end{enumerate}
+\end{proposition}
+\hrulefill
+The \textit{maximum } and \textit{minimum} sizes of subsets.
+\hrulefill
+\begin{definition}
+	\tit{(\textbf{Dense \& Nowhere Dense})} Let $ (M,\topo{M}) $ be a topological space. Then,
+	\begin{enumerate}
+		\item{A subset $ A\subseteq M $ is called dense if $ \closure{A} = M $.}
+		\item{A subset $ A\subseteq M $ is called nowhere dense if $ \interior{(\closure{A})} = \Phi $.}
+	\end{enumerate}
+\end{definition}
+\hrulefill 
+Properties of Closures, Open Interiors \& Boundaries with respect to unions, intersections and complements.
+\hrulefill
+\begin{proposition}
+	Let $ (M,\topo{M}) $ be a topological space and let $ A,B\subseteq M $ be subsets.
+	Then, one has,
+	\begin{enumerate}
+		\item{$ \interior{\Phi} = \Phi = \closure{\Phi} $ and $ \interior{M} = M = \closure{M} $ as well as $ \boundary{\Phi} = \Phi = \boundary{M} $.
+	\begin{proof}
+		Since $ \Phi \in \nbdsys{U}{\Phi}$, thus, $ \interior{\Phi} = \Phi $ and similarly for the closure. For boundary of $ \Phi $, note that for $ p \in \boundary{\Phi} $, $ U \in \nbdsys{U}{p} $ should be such that $ U \cap \Phi \neq \Phi \neq (M\not\;\;\Phi) \cap U $. Since $ U\cap \Phi \neq \Phi \implies  U= \Phi$. Also, for $ q \in \boundary{M} $, $ U\in \nbdsys{U}{q} $ should be such that $ U\cap M \neq \Phi \neq U\cap (M\not\;\;M) = U \cap \Phi  \implies U = \Phi$.
+	\end{proof}	
+	}
+\item{$ \interior{A} \subseteq A \subseteq \closure{A} $ and
+\[\closure{(\closure{A})} = \closure{A}\;,\;\; \interior{(\interior{A})} = \interior{A}\;,\;\;\boundary{(\boundary{A})} \subseteq \boundary{A}\]
+\begin{proof}
+	For any $ p \in \interior{A} $, we have $ p\in A\in\nbdsys{U}{p} $, thus, $ \interior{A} \subseteq A $. The $ A $ is necessarily in $ \closure{A} $ as for any point $ p\in A $ and any $ U\in \nbdsys{U}{p} $ have $ \{p\} $ in common. Thus $ \interior{A} \subseteq A \subseteq \closure{A} $. Since $ \interior{A} $ is the largest open set in $ A $, then $ \interior{(\interior{A})} $ is also the largest open set in $ \interior{A} $. Thus $ \interior{(\interior{A})} = \interior{A} $. Similarly for closure. For boundary, using Proposition 4, we see that $ \boundary{A} $ is closed with $ \boundary{A} = \closure{A}\not\;\;\interior{A} $. Therefore, $ \boundary{(\boundary{A})} =  \closure{(\boundary{A})}\not\;\;\interior{(\boundary{A})}  = \boundary{A}\not\;\;\interior{(\boundary{A})} \subseteq \boundary{A}$.
+\end{proof}
+}
+\item{For $ A\subseteq B $,
+\[\interior{A} \subseteq \interior{B}\;,\;\;\closure{A}\subseteq \closure{B}\]
+}
+\item{$ \interior{A}\cup \interior{B} \subseteq \interior{(A\cup B)}\;,\;\;\boundary{(A\cup B)} \subseteq \boundary{A} \cup \boundary{B}\;,\;\; \closure{A}\cup \closure{B} = \closure{(A\cup B)} $.}
+\item{$ \interior{A} \cap \interior{B} = \interior{(A\cap B)}\;,\;\;\closure{(A\cap B)} \subseteq \closure{A} \cap \closure{B} $.
+\begin{proof}
+	Note that $ \interior{A} \subseteq A$, $ \interior{B}\subseteq B $ and $ A\cap B \subseteq A,B $, thus $ \interior{(A\cap B)} \subseteq \interior{A}\cap \interior{B} $ and $ \interior{A} \cap \interior{B} \subseteq \interior{(A\cap B)} $ hence proving the first part. For second part, note that $ A\cap B \subseteq A,B $, thus $ \closure{(A\cap B)} \subseteq \closure{A}\cap \closure{B} $.
+\end{proof}
+}
+\item{$ \interior{(M\not\;\;A)} = M\not\;\; \closure{A}\;,\;\;\boundary{(M\not\;\;A)}= \boundary{A}\;,\;\;\closure{(M\not\;\;A)} = M\not\;\;\interior{A}$.
+\begin{proof}
+	Note that the boundary points have a symmetric definition (Definition 9) w.r.t. $ A $ or $ M\not\;\;A $, hence $ \boundary{(M\not\;\;A)} = \boundary{A} $. Now, let $ p\in M\not\;\;\interior{A} $. Since $ p\notin \interior{A} $, thus, $ A\notin \nbdsys{U}{p} $, that is for all $ U\in \nbdsys{U}{p} $, $ U\cap(M\not\;\; A) \neq \Phi $. This means that $ p\in \closure{(M\not\;\;A)} $, hence showing $ \closure{(M\not\;\;A)} = M\not\;\;\interior{A}$. We can use this to show the last part in the following way,
+	\begin{equation*}
+		\begin{split}
+			M\not\;\;\interior{(M\not\;\;A)} &= \closure{(M\not\;\;\interior{(M\not\;\;A)})} \\
+				&= \closure{A}\\
+				\implies \;\;\;\;M\not\;\;\closure{A} &= M\not\;\; (M\not\;\;\interior{(M\not\;\;A)})\\
+				&= \interior{(M\not\;\;A)}
+		\end{split}
+	\end{equation*}
+Hence Proved.
+\end{proof}
+}
+	\end{enumerate}
+\end{proposition}
+\hrulefill
+\newpage
+\subsection{Continuous Maps}
+Definition of continuous maps between topological spaces is derived in the same way as we learned for Metric Spaces.
+\hrulefill
+\begin{definition}
+	\tit{(\textbf{Continuity})} Let $ f : (M,\topo{M}) \longrightarrow (N,\topo{N}) $ be a map between topological spaces.
+	\begin{enumerate}
+		\item{The map $ f $ is called continuous at $ p\in M $ if for every neighborhood $ U\in \nbdsys{U}{f(p)} $ of $ f(p) $ the $ f^{-1}(U) $ is a neighborhood of $ p $.}
+		\item{The map $ f $ is called continuous if the pre-image of every open subset of $ N $ is open in $ M $.}
+		\item{The set of continuous maps is denoted by
+	\[\cntnsmap{M}{N} = \{f : M \longrightarrow N \;\vert\;f \text{ is continuous}\}.\]	
+	}
+	\end{enumerate}
+\end{definition}
+\hrulefill
+Basic results of continuity.
+\hrulefill
+\begin{proposition}
+	Let $ f : (M,\topo{M}) \longrightarrow (N,\topo{N}) $ be a map between topological spaces. Then the following statements are equivalent:
+	\begin{enumerate}
+		\item{The map $ f $ is continuous at every point.}
+		\item{The map $ f $ is continuous.}
+		\item{The subset $ f^{-1}(A) \subseteq M $ is closed for every closed $ A\subseteq N $.}
+		\item{The subset $ f^{-1}(O) $ is open for every $ O \in \topo{S} $ in a subbasis $ \topo{S} $ of $ N $.}
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	For $ 1.\to 2. $ : Let $ O \subseteq N $ be open. Let $ p \in f^{-1}(O) $, therefore $ f(p)\in O $.Thus, $ O \in \nbdsys{U}{f(p)} $ and $ f^{-1}(O)\in \nbdsys{U}{p} $. Since this is true for all $ p\in f^{-1}(O) $, we thus have $ f^{-1}(O) $ that is open.\\
+	For $ 2.\to 1. $ : Let $ U\in \nbdsys{U}{f(p)} $, thus there is an open set $ O \subseteq U $ with $ f(p)\in O $. Since $ f $ is continuous, so $ f^{-1}(O) $ is open. Hence, $ f^{-1}(O)\subseteq f^{-1}(U)  $, that is, $ f^{-1}(U) \in \nbdsys{U}{p}$. Hence proved. \\
+ 	For $ 2. \to 3. $ : Let $ A $ be an open set in $ N $. Since $ f $ is continuous at every point in $ M $, therefore $ f^{-1}(A) $ is open. This implies that if $ B = N\not\;\;A $ is closed then $ f^{-1}(B) $ is closed.
+\end{proof}
+\hrulefill
+Composition of maps.
+\hrulefill
+\begin{proposition}
+	Let $ f : (M,\topo{M}) \longrightarrow (N,\topo{N})$ and $ g : (N,\topo{N}) \longrightarrow (K,\topo{K}) $ be maps between topological spaces.
+	\begin{enumerate}
+		\item{If $ f $  is continuous at $ p \in M $ and $ g $ is continuous at $ f(p) \in N$ then $ g\circ f $ is continuous at $ p $.}
+		\item{If $ f $ and $ g $ are continuous then $ g \circ f $ is continuous.}
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	First note that $ (g\circ f)^{-1} =f^{-1}\circ g^{-1} $. Therefore, for any point $ p \in K $ and it's neighborhood $ U \in \nbdsys{U}{p} $, $ (g\circ f)^{-1}(U) \in \nbdsys{U}{f^{-1}(g^{-1})(U)} $ as $ f $ and $ g $ are continuous. 
+\end{proof}
+\hrulefill
+Additional features of maps.
+\hrulefill
+\begin{definition}
+	\tit{(\textbf{Open \& Closed Maps})} Let $ f : (M,\topo{M}) \longrightarrow (N,\topo{N})$ be a map between topological spaces.
+	\begin{enumerate}
+		\item{The map $ f $ is called open if $ f(O) \subseteq N $ is open for all open $ O \subseteq M $.}
+		\item{The map $ f $ is called closed if $ f(A) \subseteq N $ is closed for all closed $ A \subseteq M $.}
+	\end{enumerate}
+Note that these three notions (continuous, open and closed) of maps are not mutually exclusive, that is, a map which is open is not generally not closed and/or continuous.
+\end{definition}
+\hrulefill
+\tit{Isomorphism} between topological spaces.
+\hrulefill
+\begin{definition}
+	\tit{(\textbf{Homeomorphism})} Let $ f : (M,\topo{M}) \longrightarrow (N,\topo{N}) $ be a map between topological spaces.
+	\begin{enumerate}
+		\item{The map $ f $ is called homeomorphism if $ f $ is bijective, continuous and if $ f^{-1} $ is also continuous.}
+		\item{If there is a homeomorphism $ f : (M,\topo{M}) \longrightarrow (N,\topo{N}) $ then the spaces $ (M,\topo{M}) $ and $ (N,\topo{N}) $ are called \textbf{homeomorphic}.}
+		\item{The map $ f $ is called an \textbf{embedding} if $ f $ is injective and if 
+	\[f : (M,\topo{M}) \longrightarrow \left( f(M) , \subtopo{\topo{N}}{f(M)} \right)\]
+	is a homeomorphism.	
+	}
+	\end{enumerate}
+\end{definition}
+\hrulefill
+Equivalent characterizations of homeomorphisms
+\hrulefill
+\begin{proposition}
+	Let $ f : (M,\topo{M}) \longrightarrow (N,\topo{N}) $ be a map between topological spaces. Then the following statements are equivalent:
+	\begin{enumerate}
+		\item{The map $ f $ is a homeomorphism.}
+		\item{The map $ f $ is continuous, bijective and open.}
+		\item{The map $ f $ is continuous, bijective and closed.}
+		\item{The map $ f $ is continuous and there exists a continuous map $ g : N\longrightarrow M $ with $ g\circ f = \id{M}$ and $ f\circ g = \id{N} $ where $ \id{M} : M \to M $ is the identity map. }
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	From $1. \to 2. $ : Map $ f $ is trivially continuous and bijective. Consider an open subset $ O \subseteq M $. Now since $ f^{-1} $ is continuous, therefore $ (f^{-1})^{-1}(O) = f(O) \subseteq N $ is open, so $ f  $ is open.\\
+	From $ 1. \to 3. $ : Using Proposition 6, we can proceed as above.\\
+	From $ 2. \to 1. $ : We just need to show that $ f^{-1} $ is also continuous. We also have that for any open $ O \subseteq M $, $ f(O) \subseteq N$ is open and for any open $ O \subseteq N $, $ f^{-1}(O) \subseteq M $ is open. We need that for any open subset $ O \subseteq M $, $ (f^{-1})^{-1}(O)  \subseteq N$ is open, which is trivial to see now as $ (f^{-1})^{-1} $ is $ f $.\\
+	From $ 3. \to 1. $ : Using Proposition 6, we can proceed as above.\\
+	From $ 1. \to 4. $ : Simply let $ g = f^{-1} $.
+\end{proof}
+\hrulefill
+\subsection{Connectedness}
+Let's further discuss more properties of Topological spaces, especially of \textit{connectedness} and \textit{path-connectedness}.\\\\
+\hrulefill
+Motivation for definition of Connectedness.
+\hrulefill
+\begin{proposition}
+	Consider the closed interval $ M = [0,1] $ with it's usual topology. Suppose we have two open subsets $ O_1, O_2 \subseteq [0,1] $ with $ O_1 \cup O_2 = [0,1] $ and $ O_1 \cap O_2 = \Phi $. Then necessarily $ O_1 $ and $ O_2 $ are just $ [0,1] $ and $ \Phi $.
+\end{proposition}
+\hrulefill
+\begin{definition}
+	\tit{(\textbf{Connectedness})} Let $ (M,\topo{M}) $ be a topological space. Then $ M $ is called connected if there are no two open, disjoint subsets $ O_1,O_2 \subseteq M $ with $ O_1 \cup O_2  = M $ beside $ M $ and $ \Phi $. \\
+	A subset $ A \subseteq M $ is called connected if $ \left (A, \subtopo{\topo{M}}{A}\right ) $ is connected.
+\end{definition}
+\begin{remark}
+	It's easy to see now that the unit interval $ [0,1] $ is connected.
+\end{remark}
+\hrulefill  
+\begin{proposition}
+	Let $ A\subseteq \mathbb{R} $ and $ a,b \in A $. If $ A $ is connected, then $ [a,b] \subseteq A$.
+\end{proposition}
+\begin{proof}
+	Assume $ z \in [a,b] $ such that $ z\notin A$. Clearly, $ (-\infty,z) $ and $ (z,\infty) $ are open subsets of $ \mathbb{R} $. Using the definition of subspace topology, it implies that $ (-\infty,z) \cap A $ and $ (z,\infty) \cap A $ are open in $ A $. Note that since $ A $ is connected and $ ((-\infty,z) \cap A) \cup ((z,\infty) \cap A) = A $ and both are disjoint, therefore, $ (-\infty,z) \cap A $ and $ (z,\infty) \cap A $ are $ A $ and $ \Phi $. But if $ (-\infty,z) \cap A $ is $ A $ and $ (z,\infty) \cap A $ is $ \Phi $, then $ a \in A $ but $ b \notin A $ and vice-versa, which leads to the contradiction opposing $ a,b \in A $.
+\end{proof}
+\hrulefill
+Continuity obeys Connectedness.
+\hrulefill
+\begin{proposition}
+	Let $ f : (M,\topo{M}) \longrightarrow (N,\topo{N}) $ be a continuous map between topological spaces. If $ M $ is connected then $ f(M) $ is connected too.
+\end{proposition}
+\begin{proof}
+	Suppose $ f(M) $ is not connected even after $ M $ being connected and let $ O_1 ,O_2 \subseteq f(M) $ be open and disjoint such that $ O_1 \cup O_2 = f(M) $. Clearly, $ U_1 = f^{-1}(O_1) \subseteq M $ and $ U_2 = f^{-1}(O_2) \subseteq M $ are both open as well due to continuity of $ f $. Since $ M = f^{-1}(f(M)) =  f^{-1} \left ( O_1 \cup O_2 \right ) = f^{-1}(O_1) \cup f^{-1}(O_2) = U_1 \cup U_2$ and $\Phi = f^{-1} (\Phi) = f^{-1} (O_1 \cap O_2) = f^{-1} (O_1) \cap f^{-1}(O_2) = U_1 \cap U_2$, hence we have a contradiction to connectedness of $ M $.
+\end{proof}
+\hrulefill
+Motivated from Proposition 10, we have the Topological Intermediate Value Theorem as the following corollary.
+\hrulefill
+\begin{corollary}
+	\tit{(\textbf{Intermediate Value Theorem})} Let $ f : (M,\topo{M}) \longrightarrow \mathbb{R} $ be a continuous function on a connected topological space $ M $. If $ a,b \in f(M) $ then also $ [a,b]  \subseteq f(M)$.
+\end{corollary}
+\hrulefill
+Connectedness from continuous joining of two points.
+\hrulefill
+\begin{definition}
+	\tit{(\textbf{Path - Connectedness})} Let $ (M,\topo{M}) $ be a topological space.
+	\begin{enumerate}
+		\item{A \textbf{path} in $ M $ is a continuous map $ \path $ from interval $ [0,1] $ to $ M $,
+	\[\path : [0,1] \longrightarrow M \]	
+	}
+\item{The space $ M $ is called \textbf{path-connected} if for any $ p,q \in M $ one finds a path $ \path $ with
+\[\path(0) = p\;\;\text{and}\;\;\path(1) = q\]
+}
+	\end{enumerate}
+\end{definition}
+\hrulefill
+Path-connectedness $ \implies $ Connectedness.
+\hrulefill
+\begin{proposition}
+	Let $ (M,\topo{M}) $ be a path-connected topological space. Then $ M $ is connected too.
+\end{proposition}
+\begin{proof}
+	Suppose $ M $ is not connected. Let $ O_1, O_2 \subseteq M $ be open, disjoint and such that $ O_1 \cup O_2 = M $. Let $ p \in O_1 $ and $ q \in O_2 $ and them being connected by the continuous path $ \path : [0,1] \longrightarrow M$ such that $ \path(0) = p $ and $ \path(1) = q $. Since $ \path $ is continuous, so $ \path^{-1}(O_1) $ and $ \path^{-1}(O_2) $ are open, disjoint and non-empty. Also $ [0,1] = \path^{-1}(M) = \path^{-1}(O_1 \cup O_2 ) = \path^{-1}(O_1) \cup \path^{-1}(O_2) $. Hence, we have a contradiction to the connectedness of $ [0,1] $. Therefore, our assumption that when $ M $ is not connected then $ (M,\topo{M}) $ would be path-connected is wrong.
+\end{proof}
+\begin{remark}
+	Path-connectedness is a stronger property than connectedness.
+\end{remark}
+\hrulefill
+Even if $ (M,\topo{M}) $ is not path connected, we can talk about the largest subset containing a given point $ p\in M $ which is path-connected.
+\hrulefill
+\begin{proposition}
+	Let $ (M,\topo{M}) $ be a topological space.
+	\begin{enumerate}
+		\item{If $ \{C_i\}_{i\in I} $ is a family of path-connected subsets of $ M $ such that $ \bigcap_{i\in I} C_i \neq \Phi $ then
+	\[\bigcup_{i\in I} C_i\]	
+is again path-connected.	
+}
+\item{If $ A\subseteq B \subseteq \closure{A} \subseteq M $ and $ A $ is a connected subset then $ B $ is connected as well. In particular, if $ A $ is connected, then $ \closure{A} $ is connected too.}
+\item{The union of all connected subsets of $ M $ which contain $ p $ is connected and closed and is denoted by $ \conncomp{p} $.}
+\item{The union of all path-connected subsets of $ M $ which contain $ p $ is denoted by $ \pathconncomp{p} $ which is path-connected and 
+\[\pathconncomp{p} \subseteq \conncomp{p}.\]
+}
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	First write $ C = \bigcup_{i\in I} C_i  $ and let $ O_1, O_2 \subseteq M $ such that $ (O_1 \cap C) \cap (O_2 \cap C)  = \Phi$ and $ C \subseteq O_1 \cup O_2 $, that is, we are referring to the subspace topology of $ C $. Now, since $ C \subseteq O_1\cup O_2 $, therefore $ C_i \subseteq O_1 \cup O_2 $ for all $ i\in I $. Since $ C_i $ is connected for each $ i $, therefore we have that either $ C_i  \cap O_1$ or $ C_i \cap O_2 $ as $ \Phi $. WLOG, let us assume $ C_i \cap O_1 = \Phi$ and since $ C_i \subseteq O_1 \cup O_2  $, therefore $ C_i \subseteq O_2 \cap C_i$ for all $ i\in I $. Hence $ C \subseteq O_2 \cap C $, hence for any open set in the subspace topology $ \subtopo{\topo{M}}{C} $, the only one which covers whole of $ C $ is $ C $ and $ \Phi $ itself. Hence proved the connectedness of $ C $. The proof for path-connectedness is much simpler\\\\
+\textit{	The general logical technique used here (part 2) is the following : Prove the contrapositive by contradiction. That is, for statements $ P $ and $ Q $ such that $ P \to Q $, it is equivalent to $ \neg Q \to \neg P $ and prove this by contradiction, that is assume negation and derive contradiction, more simply since for any statements $ A $ and $ B $ we have that $ \neg( B \to A) \Leftrightarrow B \wedge \neg A$, in our case, we hence assume that $ \neg(\neg Q \to \neg P) \Leftrightarrow \neg Q \wedge P$ is true and derive a contradiction.} \\\\
+For our case, let $ A \subseteq B \subseteq \closure{A} \subseteq M$ and $ A $ is connected but $ B $ is not connected. Hence we can find two open subsets $ O_1, O_2 \subseteq M $ such that $ B \subseteq O_1 \cup O_2 $ and $ (B\cap O_1) \cap (B\cap O_2) = \Phi $ and each intersection being non-empty themselves. Since $ A\subseteq B $, then $ A\subseteq O_1 \union O_2 $ and $ (A\intrs O_1) \intrs(A\intrs O_2) = \Phi $. We still need to show that $ A\intrs O_k $ is not empty to establish the contradiction to completeness of $ A $. For that, since $ B\subseteq \closure{A} $, thus for any element $ p \in B  $, $ p\in \closure{A} $ and hence there exists open $ U \in \nbdsys{U}{p} $ such that $ U\intrs A \neq \Phi $. Hence, choosing $ b_1 \in B\intrs O_1$ and $ b_2 \in B\intrs O_2 $, we first note that $ O_1 \in \nbdsys{U}{b_1} $ and $ O_2 \in \nbdsys{U}{b_2} $, hence $ O_1 \intrs A \neq \Phi \neq O_2 \intrs A$. Hence the contradiction.\\\\
+Part 3 and 4 follows from 1 and 2.
+\end{proof}
+\newpage
+\hrulefill
+Properties of $ \conncomp{p} $ and $ \pathconncomp{p} $.
+\hrulefill
+\begin{definition}
+	\tit{(\textbf{Connected Components})} Let $ (M,\topo{M}) $ be a topological space and $ p\in M $.
+	\begin{enumerate}
+		\item{The subset $ \conncomp{p} $ is called the \textbf{connected component} of $ p $.}
+		\item{The subset $ \pathconncomp{p} $ is called the \textbf{path-connected component} of $ p $.}
+	\end{enumerate}
+\end{definition}
+\hrulefill
+Equivalence of \textit{being in same connected component of $ M $}.
+\hrulefill
+\begin{proposition}
+	Let $ (M,\topo{M}) $ be a topological space. Then,
+	\begin{enumerate}
+		\item{$ q\in \conncomp{p} $ holds if and only if $ p \in \conncomp{q} $.}
+		\item{If $ q \in \conncomp{p} $ and $ x \in \conncomp{q} $, then $ x\in \conncomp{p} $.}
+		\item{Hence, belonging in same connected component is an \textbf{equivalence relation}. Similarly for path-connected component too.}
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	It's trivial to see Part 1 (symmetric) as since $ q\in \conncomp{p} $, therefore $ \conncomp{p} \subseteq \conncomp{q} $. Hence $ p\in \conncomp{q} $. For part 2 (transitive), since $ q\in \conncomp{x} $ (Part 1) therefore $ \conncomp{x} \subseteq \conncomp{q} $. Similarly, since $ p\in \conncomp{q} $, hence $ \conncomp{q} \subseteq \conncomp{p} $. Hence we get that $ \conncomp{x} \subseteq \conncomp{q} \subseteq \conncomp{p} \implies x \in \conncomp{p}$.
+\end{proof}
+\hrulefill
+Easing the constraint of Global Connectedness.
+\hrulefill
+\begin{definition}
+	\tit{(\textbf{Local Connectedness \& Total Disconnectedness})} Let $ (M,\topo{M}) $ be a topological space.
+	\begin{enumerate}
+		\item{If for every point $ p\in M $, every neighborhood $ U\in \nbdsys{U}{p} $ contains a (path-)connected neighborhood of $ p $ then $ (M,\topo{M}) $ is called \textbf{Locally (Path-)Connected}.}
+		\item{If $ \conncomp{p} = \{p\} $ for all $ p\in M $ then $ (M,\topo{M}) $ is called \textbf{Totally Disconnected}.}
+	\end{enumerate}
+\end{definition}
+\hrulefill
+\begin{proposition}
+	Let $ (M,\topo{M}) $ be a topological space.
+	\begin{enumerate}
+		\item{If $ M $ is locally connected then the connected component $ \conncomp{p} $ of $ p\in M $ is open.}
+		\item{The space $ M $ is locally connected if and only if the connected open subsets form a basis of the topology.}
+		\item{If $ M $ is locally path-connected then for all $ p\in M $ we have
+	\[\conncomp{p} = \pathconncomp{p}.\]	
+	}
+\item{Suppose $ M $ is locally path-connected. Then $ M $ is connected if and only if $ M $ is path-connected.}
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	Let $ p,q \in M $ such that $ q \in \conncomp{p} $. Since $ M $ is locally connected therefore the connected neighborhood $ U \in \nbdsys{U}{q} $ is such that $ U \intrs\conncomp{p} \neq \Phi$. Now note that by Proposition 13, we have that $ U \union \conncomp{p} $ is again connected and contains $ p $. Hence $ U \subseteq U \union \conncomp{p}\subseteq \conncomp{p} $, that is $ \conncomp{p} \in \nbdsys{U}{q}$. Since $ q $ is arbitrary in $ \conncomp{p} $, therefore by Proposition 3, $ \conncomp{p} $ is open.\\
+	For 2, if the space $ M $ is locally connected then for each point, every nieghborhood has a connected neighborhood, which forms a neighborhood basis, hence it forms a basis for the whole topology. Similarly for the converse.\\
+	For 3, let $ M $ be locally path-connected, hence locally connected. From Proposition 13, we know that $ \pathconncomp{p} \subseteq \conncomp{p} $. Now suppose that $ q \in \conncomp{p} \notset \pathconncomp{p} $. Clearly, $ \pathconncomp{q} \subseteq \conncomp{q} \subseteq \conncomp{p} \notset \pathconncomp{p} $. This means that 
+	\[ \conncomp{p} \notset \pathconncomp{p} = \bunion_{q \in \conncomp{p} \notset \pathconncomp{p} } \pathconncomp{q}\]
+	hence $ q \in \conncomp{p} \notset \pathconncomp{p}  $ is open as $ \pathconncomp{q} $ is open by extension of part 1. Hence we have a decomposition of $ \conncomp{p} $ into disjoint subsets $ \conncomp{p} \notset \pathconncomp{p}$ and $ \pathconncomp{p} $. Since $ \conncomp{p} $ is connected, therefore one of these has to be empty but since $ p \in \pathconncomp{p} $ hence $ \conncomp{p} \notset \pathconncomp{p} = \Phi$. The $ 4^{th} $ now follows as 3rd is true for all $ p\in M $.
+\end{proof} 
+\hrulefill
+\newpage
+\subsection{Separation Properties}
+We now discuss the axioms which collect features of how points in a topological space can be separated from each other.
+
+\hrulefill
+\begin{definition}
+	(\textbf{Separation Properties}) Let $ (M,\topo{M}) $ be a topological space.
+	\begin{enumerate}
+		\item{The space $ M $ is called a \textbf{$ T_0 $-space} if for each pair of two different points $ p\neq q $ in $ M $, we find an open subset which contains only one of them.}
+		\item{The space $ M $ is called a \textbf{$ T_1 $-space} if for each pair of two different point $ p\neq q $ in $ M $, we find open subsets $ O_1 $ and $ O_2 $ with $ p\in O_1 $ and $ q\in O_2 $ but $ p\notin O_2 $ and $ q \notin O_1 $.}
+		\item{The space $ M $ is called a \textbf{$ T_2 $-space} or a \textbf{Hausdorff space} if for each pair of two different points $ p\neq q $ in $ M $, we find disjoint open subsets $ O_1 $ and $ O_2 $ with $ p\in O_1 $ and $ q\in O_2 $.}
+		\item{The space $ M $ is called a \textbf{$ T_3 $-space} if for every closed subset $ A\subseteq M $ and every $ p\in M\notset A $, there are disjoint open subsets $ O_1 $ and $ O_2 $ with $ A\subseteq O_1 $ and $ p\in O_2 $.}
+		\item{The space $ M $ is called a \textbf{$ T_4 $-space} if for two disjoint closed subsets $ A_1,A_2 \subseteq M $, there are disjoint open subsets $ O_1 $ and $ O_2 $ with $ A_1\subseteq O_1 $ and $ A_2 \subseteq O_2 $.}
+	\end{enumerate}
+\end{definition}
+\begin{remark}
+	It should be noted that $ T_0 \centernot \implies T_1  $ but $ T_1 \implies T_0 $, $ T_1 \centernot \implies T_2 $ but $ T_2 \implies T_1 $.
+\end{remark}
+\hrulefill
+Basic Implications between axioms.
+\hrulefill
+\begin{proposition}
+	A topological space $ (M,\topo{M}) $ is a $ T_1 $-space if and only if every point $ p\in M $ gives a closed subset $ \{p\}\subseteq M $.
+\end{proposition}
+\begin{proof}
+	It's trivial to see that since $ M\notset \{p\} $ is neighborhood of all of it's points as $ M $ is $ T_1 $, hence $ M\notset \{p\} $ is open and hence $ \{p\} $ is closed. Converse can be seen from this argument too.
+\end{proof}
+\hrulefill
+\begin{proposition}
+	A topological space $ (M,\topo{M}) $ is a $ T_3 $-space if and only if for every $ p\in M $ and every open neighborhood $ O\in \nbdsys{U}{p} $ one finds an open $ U \in \nbdsys{U}{p} $  with
+	\[ p \in U \subseteq \closure{U} \subseteq O.\]
+	This means that there is a neighborhood basis of closed subsets for each point $ p\in M $.
+\end{proposition}
+\begin{proof}
+	Let $ (M,\topo{M}) $ be a $ T_3 $-space and $ O \in \nbdsys{U}{p} $ be open. Clearly, $ M \notset O $ is closed, hence $ p\in O $. Now since $ (M,\topo{M}) $ is $ T_3 $, hence there exists open $ O_1 $ and $ O_2 $ such that $ M\notset O \subseteq O_1$ and $ p\in O_2 $ and $ O_1 \intrs O_2 = \Phi $. Hence it is clear to see that now $ M\notset O_1 \subseteq O $ where trivially $ M\notset O_1 $ is closed and since $ O_1 $ and $ O_2 $ are disjoint hence we get $ O_2 \subseteq M\notset O_1 \subseteq O $. Since $ \closure{O_2} $ is the smallest closed subset containing $ O_2 $, hence we get the desired result.
+\end{proof}
+\hrulefill
+\begin{proposition}
+	A topological space $ (M,\topo{M}) $ is a $ T_4 $-space if and only if for every closed subset $ A \subseteq M $ and every open $ O \subseteq M $ with $ A\subseteq O $, we have an open $ U \subseteq M $ with 
+	\[A \subseteq U \subseteq \closure{U} \subseteq O\]
+\end{proposition}
+\begin{proof}
+	Let $ (M,\topo{M}) $ be a $ T_4 $-space and $ A \subseteq M $ be a closed subset with $ A \subseteq O $ where $ O $ is an open subset in $ M $. Now we have that $ M\notset O $ and $ A $ are closed. Using the $ T_4 $ criterion, we have two open, disjoint subsets $ U $ and $ V $ such that $ M\notset O \subseteq U $ and $ A \subseteq V $. Clearly, $ M\notset U \subseteq O $ and since $ U $ is open so $ M\notset U $ is closed. Since $ U $ and $ V $ are disjoint so $ V \subseteq M\notset U \subseteq O $. 
+\end{proof}
+\hrulefill
+Motivated from unrelated nature of $ T_1, T_2 $ and $ T_3, T_4 $ axioms, we get the following definitions.
+\hrulefill
+\begin{definition}
+	(\textit{\textbf{Regular \& Normal Spaces}}) Let $ (M,\topo{M}) $ be a topological space.
+	\begin{enumerate}
+		\item{The space $ (M,\topo{M}) $ is called \textbf{regular} if it is $ T_1 $ and $ T_3 $.}
+		\item{The space $ (M,\topo{M}) $ is called \textbf{normal} if it is $ T_1 $ and $ T_4 $.}
+	\end{enumerate}
+\end{definition}
+\hrulefill
+\newpage
+\begin{proposition}
+	A \textbf{regular space is Hausdorff} ($ T_2 $) and a \textbf{normal space is regular}.
+\end{proposition}
+\begin{proof}
+	Let $ (M,\topo{M}) $ be a regular space. So it is $ T_1 $ and $ T_3 $ by definition. Also let $ p \neq q $ in $ M $, hence $ \{p\}, \{q\} \subseteq M $ are closed subsets by Proposition 16. Hence $ T_3 $ implies $ T_4 $ trivially.\\\\
+	For $ (M,\topo{M}) $ being a normal space, we have that it is $ T_1 $ and $ T_4 $. By $ T_1 $, a point is closed, therefore $ T_4  $ implies $ T_3 $ by definition.
+\end{proof}
+\begin{remark} Note the following:
+	\begin{itemize}
+		\item{$ T_1 + T_3 \implies T_2 $.}
+		\item{$ T_1 + T_4 \implies T_1 + T_3$.}
+		\item{Hence, $ T_1 + T_4 \implies T_1 + T_2 + T_3 + T_4 $.}
+		\item{This proposition shows the importance of $ T_2 $-space, hence the special name (Hausdorff) given to it.}
+	\end{itemize}
+\end{remark}
+\hrulefill
+Metric Spaces are Normal!
+\hrulefill
+\begin{proposition}
+	A metric space is normal and hence it is $ T_1, T_2, T_3 \& T_4 $.
+\end{proposition}
+\begin{proof}
+	Let $ M $ be a metric space with distance function $ d(\cdot,\cdot) $. Consider two points $ p,q\in M $. Let $ r = d(p,q) $. Clearly, $ q \notin B_{r/2}(p)  $ and $ p \notin B_{r/2}(q) $, hence $ M $ is $ T_1 $. \\\\
+	For proving $ T_4 $, consider two closed disjoint subsets $ A,B \subseteq M $. For any $ p\in A $, we have a $ r_p $ such that $ B_{r_p}(p) \intrs B = \Phi $. Note that $ p\in M\notset B $ and $ M\notset B $ is open. Similarly for $ q \in B $ we have $ r_q $ such that $ B_{r_q}(q) \intrs A = \Phi $. Then we consider the following open sets
+	\[U = \bunion_{p\in A} B_{r_p/2}(p) \;\;\text{and}\;\;V = \bunion_{q \in B}B_{r_q/2}(q)\]
+	Then, we have that $ A \subseteq U $ and $ B \subseteq V $. To show $ U $ and $ V $ are disjoint, we just need to show that every intersection $ B_{r_p/2}(p) \intrs B_{r_q/2}(q) = \Phi $, which trivially follows by triangle inequality. 
+\end{proof}
+\hrulefill
+\begin{proposition}
+	Let $ f,g : (M,\topo{M}) \longrightarrow (N,\topo{N})$ be a continuous maps between topological spaces and assume that $ (N,\topo{N}) $ is Hausdorff. Then,
+	\begin{enumerate}
+		\item{The coincidence set $ \{p\in M\;\vert\; f(p) = g(p)\}\subseteq M $ is \textbf{closed}.}
+		\item{If $ U\subseteq M $ is dense then $ \left.f\right \vert_U =  \left.g\right \vert_U $ implies $ f=g $.}
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	Consider $ A = \{p\in M\;\vert\; f(p) = g(p)\} $, then $ M\setminus A = \{q\in M \;\vert\; f(q) \neq g(q)\}$. Now take any point $ p \in M\setminus A $ so that $ f(p) \neq g(p) $. Since $ f $ and $ g $ are continuous, therefore $ \forall \;U\in \nbdsys{U}{f(p)} $ \& $ \forall \;V\in \nbdsys{U}{g(p)} $, $ f^{-1}(U) $ and $ g^{-1}(V) $ are open neighborhoods of $ p $. Moreover, since $ (N,\topo{N}) $ is Hausdorff, therefore there exists disjoint open sets $ O_1 $ and $ O_2 $ such that $ f(p)\in O_1 $ and $ g(p)\in O_2 $. Hence $ f^{-1}(O_1),g^{-1}(O_2)\in \nbdsys{U}{p} $. Now since $ p\in U := f^{-1}(O_1) \union g^{-1}(O_2) \subseteq M\setminus A$ is open, hence $ U\in \nbdsys{U}{p} $. Therefore $ M\setminus A \in \nbdsys{U}{p}$ for all $ p\in M\setminus A$ so $ M\setminus A $ is open and $ A $ is closed.\\
+	In the second part, $ \left . f\right \vert_U = \{f(p)\;\vert\;p\in U\subseteq M\}$, similarly for $ \left .g\right \vert_U $. If $ \left .f\right \vert_U = \left .g\right \vert_U $, then the incidence set $ \{p\in U\;\vert\; f(p) = g(p)\} $ is the whole of $ U $. Since incidence set is closed, so is the $ \closure{U} $. But $ \closure{U} = M $ since $ U $ is dense, hence $ f = g $ for all points in $ (M,\topo{M}) $.
+\end{proof}
+\hrulefill
+\newpage
+\section{Construction of Topological Spaces}
+
+\end{document}
